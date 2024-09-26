@@ -18,5 +18,8 @@
 !MAKEFILE
 !CMakeLists.txt
 !src/
+!src/**
+**.o
+**.exe
 
 .vscode/

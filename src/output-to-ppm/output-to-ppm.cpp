@@ -21,7 +21,7 @@ void render(int h,int w,Shader *shader,std::vector<Colf> &buf){
 }
 int main(){
   static const int w=256,h=256;
-  std::ofstream ofs("../image/demo.ppm");
+  std::ofstream ofs("../../image/demo.ppm");
   ofs << "P3\n" << w << ' ' << h << "\n255\n";
   std::vector<Colf> buf;
   render(h,w,[](int i,int j){return Colf(i/float(w),j/float(h),0.);},buf);
