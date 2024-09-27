@@ -53,4 +53,5 @@ class vec3d{
 };
 // Binomial operators
 vec3d operator*(const double t,const vec3d& v){return v*t;}
+using point=vec3d;
 #endif
