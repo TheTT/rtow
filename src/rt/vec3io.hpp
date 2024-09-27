@@ -3,9 +3,9 @@
 #include<iostream>
 #include"vec3.hpp"
 std::istream& operator>>(std::istream& in,vec3d& v){
-  return in>>v.e[0]>>v.e[1]>>v.e[2];
+  return in>>v.x()>>v.y()>>v.z();
 }
 std::ostream& operator<<(std::ostream& out,const vec3d& v){
-  return out<<v.e[0]<<' '<<v.e[1]<<' '<<v.e[2];
+  return out<<v.x()<<' '<<v.y()<<' '<<v.z();
 }
 #endif

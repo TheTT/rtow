@@ -1,16 +1,16 @@
 #ifndef __VEC3_HPP__
 #define __VEC3_HPP__
 double sqrtRec(double x){
-  long long i;double x2,y;
+  union{long long i;double y;}u;
+  double x2;
   static const double threehalfs=1.5;
-  y=x;
-  x2=y*0.5;
-  i=*reinterpret_cast<long long*>(&y);
-  i=0x5fe6eb50c7b537a9-(i>>1);
-  y=*reinterpret_cast<double*>(&i);
-  y=y*(threehalfs-(x2*y*y));
-  y=y*(threehalfs-(x2*y*y));
-  return y;
+  u.y=x;
+  x2=u.y*0.5;
+  u.i=0x5fe6eb50c7b537a9-(u.i>>1);
+  u.y=u.y*(threehalfs-(x2*u.y*u.y));
+  u.y=u.y*(threehalfs-(x2*u.y*u.y));
+  u.y=u.y*(threehalfs-(x2*u.y*u.y));
+  return u.y;
 }
 class vec3d{
  private:
@@ -23,6 +23,9 @@ class vec3d{
   double x()const{return e[0];}
   double y()const{return e[1];}
   double z()const{return e[2];}
+  double &x(){return e[0];}
+  double &y(){return e[1];}
+  double &z(){return e[2];}
   // Monadic operators
   vec3d operator-()const{return vec3d(-e[0],-e[1],-e[2]);}
   double operator[](int i)const{return e[i];}
