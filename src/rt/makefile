@@ -1,0 +1,13 @@
+CXX = g++
+CXXFLAGS = -Wall -O2 -std=c++20
+TARGET = main.exe
+SRCS = main.cpp vec3.hpp vec3io.hpp color.hpp
+
+all: $(TARGET)
+
+$(TARGET): $(SRCS)
+	$(CXX) $(CXXFLAGS) -o main.cpp
+
+.PHONY: all clean
+clean:
+	rm -f $(TARGET)
