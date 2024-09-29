@@ -5,15 +5,23 @@
 class camera{
  private:
   point at,tar,up;
+  point fvec,right;
   int iw,ih;double fov;
   double asr,vph,vpw;
   char done;
  public:
   camera():done(7){}
+  const point &getAt()const{return at;}
+  const point &getTar()const{return tar;}
+  const vec3d &getUp()const{return up;}
+  const point &getFvec()const{return fvec;}
+  const point &getRight()const{return right;}
   camera& setDire(const point& at,const point& tar,const vec3d& up){
     this->at=at;
     this->tar=tar;
-    this->up=up;
+    this->up=up.norm();
+    fvec=tar-at;
+    right=(up^fvec).norm();
     done|=1;
     return *this;
   }

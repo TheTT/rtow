@@ -48,7 +48,7 @@ class vec3d{
   double lenSqr()const{return e[0]*e[0]+e[1]*e[1]+e[2]*e[2];}
   double lenRec()const{return sqrtRec(lenSqr());}
   double len()const{double x=lenSqr();return x*sqrtRec(x);}
-  vec3d unit()const{return *this*lenRec();}
+  vec3d norm()const{return *this*lenRec();}
   void makeUnit(){*this*=lenRec();}
 };
 // Binomial operators
