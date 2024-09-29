@@ -11,11 +11,11 @@ class Camera{
   char done;
  public:
   Camera():done(7){}
-  const Point &getAt()const{return at;}
-  const Point &getTar()const{return tar;}
-  const Vec3d &getUp()const{return up;}
-  const Point &getFvec()const{return fvec;}
-  const Point &getRight()const{return right;}
+  inline const Point &getAt()const{return at;}
+  inline const Point &getTar()const{return tar;}
+  inline const Vec3d &getUp()const{return up;}
+  inline const Point &getFvec()const{return fvec;}
+  inline const Point &getRight()const{return right;}
   Camera& setDire(const Point& at,const Point& tar,const Vec3d& up){
     this->at=at;
     this->tar=tar;
@@ -45,6 +45,12 @@ class Camera{
     }
     return *this;
   }
-  bool ready()const{return done==7;}
+  inline bool ready()const{return done==7;}
+  Ray getRay(double u,double v)const{
+    return Ray(at,(fvec+(right*(u-0.5)*vpw)+(up*(0.5-v)*vph)).norm());
+  }
+  inline Ray getRay(int x,int y)const{
+    return getRay((x+0.5)/iw,(y+0.5)/ih);
+  }
 };
 #endif

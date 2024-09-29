@@ -10,11 +10,6 @@ class rder{
   }
  public:
   rder(){}
-  Col trace(Camera cam,double vpu,double vpv)const{
-    Point o=cam.getAt();
-    Vec3d d=cam.getFvec()+cam.getRight()*vpu-cam.getUp()*vpv;
-    return trace(Ray(o,d));
-  }
   void work()const{}
 };
 #endif
