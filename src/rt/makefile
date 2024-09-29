@@ -6,7 +6,7 @@ SRCS = main.cpp vec3.hpp vec3io.hpp color.hpp ray.hpp camera.hpp rder.hpp
 all: $(TARGET)
 
 $(TARGET): $(SRCS)
-	$(CXX) $(CXXFLAGS) $(SRCS) -o main
+	$(CXX) $(CXXFLAGS) main.cpp -o main
 
 .PHONY: all clean
 clean:

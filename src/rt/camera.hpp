@@ -16,6 +16,8 @@ class Camera{
   inline const Vec3d &getUp()const{return up;}
   inline const Point &getFvec()const{return fvec;}
   inline const Point &getRight()const{return right;}
+  inline int getIw()const{return iw;}
+  inline int getIh()const{return ih;}
   Camera& setDire(const Point& at,const Point& tar,const Vec3d& up){
     this->at=at;
     this->tar=tar;
