@@ -7,7 +7,9 @@ class rder{
  private:
   Camera cam;
   Col trace(Ray r)const{
-    return Col();
+    Vec3d ud=r.getDir().norm();
+    double t=0.5*(ud.y()+1.);
+    return Col(1,1,1)*(1-t)+Col(0.5,0.7,1)*t;
   }
  public:
   rder(){}

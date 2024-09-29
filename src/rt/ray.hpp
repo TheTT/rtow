@@ -8,8 +8,8 @@ class Ray{
  public:
   Ray():o(),d(){}
   Ray(const Point& o,const Vec3d& d):o(o),d(d){}
-  const Point &orig()const{return o;}
-  const Vec3d &dire()const{return d;}
+  const Point &getOri()const{return o;}
+  const Vec3d &getDir()const{return d;}
   Point at(double t)const{return o+d*t;}
 };
 #endif
