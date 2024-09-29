@@ -2,10 +2,10 @@
 #define __VEC3IO_HPP__
 #include<iostream>
 #include"vec3.hpp"
-std::istream& operator>>(std::istream& in,vec3d& v){
+std::istream& operator>>(std::istream& in,Vec3d& v){
   return in>>v.x()>>v.y()>>v.z();
 }
-std::ostream& operator<<(std::ostream& out,const vec3d& v){
+std::ostream& operator<<(std::ostream& out,const Vec3d& v){
   return out<<v.x()<<' '<<v.y()<<' '<<v.z();
 }
 #endif

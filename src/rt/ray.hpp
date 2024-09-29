@@ -1,15 +1,15 @@
 #ifndef __RAY_HPP__
 #define __RAY_HPP__
 #include"vec3.hpp"
-class ray{
+class Ray{
  private:
-  point o;
-  vec3d d;
+  Point o;
+  Vec3d d;
  public:
-  ray():o(),d(){}
-  ray(const point& o,const vec3d& d):o(o),d(d){}
-  const point &orig()const{return o;}
-  const vec3d &dire()const{return d;}
-  point at(double t)const{return o+d*t;}
+  Ray():o(),d(){}
+  Ray(const Point& o,const Vec3d& d):o(o),d(d){}
+  const Point &orig()const{return o;}
+  const Vec3d &dire()const{return d;}
+  Point at(double t)const{return o+d*t;}
 };
 #endif

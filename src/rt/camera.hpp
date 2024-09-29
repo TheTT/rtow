@@ -2,21 +2,21 @@
 #define __CAMERA_H__
 #include<cmath>
 #include"ray.hpp"
-class camera{
+class Camera{
  private:
-  point at,tar,up;
-  point fvec,right;
+  Point at,tar,up;
+  Point fvec,right;
   int iw,ih;double fov;
   double asr,vph,vpw;
   char done;
  public:
-  camera():done(7){}
-  const point &getAt()const{return at;}
-  const point &getTar()const{return tar;}
-  const vec3d &getUp()const{return up;}
-  const point &getFvec()const{return fvec;}
-  const point &getRight()const{return right;}
-  camera& setDire(const point& at,const point& tar,const vec3d& up){
+  Camera():done(7){}
+  const Point &getAt()const{return at;}
+  const Point &getTar()const{return tar;}
+  const Vec3d &getUp()const{return up;}
+  const Point &getFvec()const{return fvec;}
+  const Point &getRight()const{return right;}
+  Camera& setDire(const Point& at,const Point& tar,const Vec3d& up){
     this->at=at;
     this->tar=tar;
     this->up=up.norm();
@@ -25,7 +25,7 @@ class camera{
     done|=1;
     return *this;
   }
-  camera& setRes(int iw,int ih){
+  Camera& setRes(int iw,int ih){
     this->iw=iw;
     this->ih=ih;
     asr=double(iw)/ih;
@@ -36,7 +36,7 @@ class camera{
     }
     return *this;
   }
-  camera& setFov(double fov){
+  Camera& setFov(double fov){
     this->fov=fov;
     done|=4;
     if(done&2){

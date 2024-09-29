@@ -12,13 +12,13 @@ double sqrtRec(double x){
   u.y=u.y*(threehalfs-(x2*u.y*u.y));
   return u.y;
 }
-class vec3d{
+class Vec3d{
  private:
   double e[3];
  public:
   // Constructors
-  vec3d():e{0,0,0}{}
-  vec3d(double e0,double e1,double e2):e{e0,e1,e2}{}
+  Vec3d():e{0,0,0}{}
+  Vec3d(double e0,double e1,double e2):e{e0,e1,e2}{}
   // Entry getters
   double x()const{return e[0];}
   double y()const{return e[1];}
@@ -27,31 +27,31 @@ class vec3d{
   double &y(){return e[1];}
   double &z(){return e[2];}
   // Monadic operators
-  vec3d operator-()const{return vec3d(-e[0],-e[1],-e[2]);}
+  Vec3d operator-()const{return Vec3d(-e[0],-e[1],-e[2]);}
   double operator[](int i)const{return e[i];}
   double& operator[](int i){return e[i];}
   // Binomial operators
-  vec3d operator+(const vec3d& v)const{return vec3d(e[0]+v.e[0],e[1]+v.e[1],e[2]+v.e[2]);}
-  vec3d operator-(const vec3d& v)const{return vec3d(e[0]-v.e[0],e[1]-v.e[1],e[2]-v.e[2]);}
-  vec3d operator*(const double t)const{return vec3d(e[0]*t,e[1]*t,e[2]*t);}
-  friend vec3d operator*(const double t,const vec3d& v);
-  vec3d operator/(const double t)const{return *this*(1./t);}
-  double operator*(const vec3d& v)const{return e[0]*v.e[0]+e[1]*v.e[1]+e[2]*v.e[2];}
-  vec3d operator^(const vec3d& v)const{return vec3d(e[1]*v.e[2]-e[2]*v.e[1],e[2]*v.e[0]-e[0]*v.e[2],e[0]*v.e[1]-e[1]*v.e[0]);}
-  vec3d operator%(const vec3d& v)const{return vec3d(e[0]*v.e[0],e[1]*v.e[1],e[2]*v.e[2]);}
+  Vec3d operator+(const Vec3d& v)const{return Vec3d(e[0]+v.e[0],e[1]+v.e[1],e[2]+v.e[2]);}
+  Vec3d operator-(const Vec3d& v)const{return Vec3d(e[0]-v.e[0],e[1]-v.e[1],e[2]-v.e[2]);}
+  Vec3d operator*(const double t)const{return Vec3d(e[0]*t,e[1]*t,e[2]*t);}
+  friend Vec3d operator*(const double t,const Vec3d& v);
+  Vec3d operator/(const double t)const{return *this*(1./t);}
+  double operator*(const Vec3d& v)const{return e[0]*v.e[0]+e[1]*v.e[1]+e[2]*v.e[2];}
+  Vec3d operator^(const Vec3d& v)const{return Vec3d(e[1]*v.e[2]-e[2]*v.e[1],e[2]*v.e[0]-e[0]*v.e[2],e[0]*v.e[1]-e[1]*v.e[0]);}
+  Vec3d operator%(const Vec3d& v)const{return Vec3d(e[0]*v.e[0],e[1]*v.e[1],e[2]*v.e[2]);}
   // Assignment operators
-  vec3d& operator+=(const vec3d& v){e[0]+=v.e[0];e[1]+=v.e[1];e[2]+=v.e[2];return *this;}
-  vec3d& operator-=(const vec3d& v){e[0]-=v.e[0];e[1]-=v.e[1];e[2]-=v.e[2];return *this;}
-  vec3d& operator*=(const double t){e[0]*=t;e[1]*=t;e[2]*=t;return *this;}
-  vec3d& operator/=(const double t){return *this*=(1./t);}
+  Vec3d& operator+=(const Vec3d& v){e[0]+=v.e[0];e[1]+=v.e[1];e[2]+=v.e[2];return *this;}
+  Vec3d& operator-=(const Vec3d& v){e[0]-=v.e[0];e[1]-=v.e[1];e[2]-=v.e[2];return *this;}
+  Vec3d& operator*=(const double t){e[0]*=t;e[1]*=t;e[2]*=t;return *this;}
+  Vec3d& operator/=(const double t){return *this*=(1./t);}
   // Utility functions
   double lenSqr()const{return e[0]*e[0]+e[1]*e[1]+e[2]*e[2];}
   double lenRec()const{return sqrtRec(lenSqr());}
   double len()const{double x=lenSqr();return x*sqrtRec(x);}
-  vec3d norm()const{return *this*lenRec();}
+  Vec3d norm()const{return *this*lenRec();}
   void makeUnit(){*this*=lenRec();}
 };
 // Binomial operators
-vec3d operator*(const double t,const vec3d& v){return v*t;}
-using point=vec3d;
+Vec3d operator*(const double t,const Vec3d& v){return v*t;}
+using Point=Vec3d;
 #endif
