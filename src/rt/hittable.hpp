@@ -9,6 +9,6 @@ struct Hitment{
 class Hittable{
  public:
   ~Hittable()=default;
-  virtual bool hit(const Ray &r,double tmin,double tmax,Hitment &h)const=0;
+  virtual bool hit(const Ray &ray,double tmin,double tmax,Hitment &h)const=0;
 };
 #endif
