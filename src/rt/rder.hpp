@@ -3,23 +3,29 @@
 #include<vector>
 #include"color.hpp"
 #include"camera.hpp"
-bool hit_sphere(const Vec3d& center,double radius,const Ray& r){
+bool hit_sphere(const Vec3d& center,const double radius,const Ray& r,double &t){
   Vec3d oc=center-r.getOri();
-  auto a=r.getDir()*r.getDir();
-  auto b=-2.*r.getDir()*oc;
-  auto c=oc*oc-radius*radius;
-  auto Del=b*b-4*a*c;
-  return (Del>=0);
+  const Vec3d &rd=r.getDir();
+  double a=rd.lenSqr();
+  double h=rd*oc;
+  double c=oc.lenSqr()-radius*radius;
+  double delD4=h*h-a*c;
+  if(delD4<0)return false;
+  t=(h-sqrt(delD4))/a;
+  return true;
 }
 class rder{
  private:
   Camera cam;
   Col trace(Ray r)const{
-    if(hit_sphere(Vec3d(0,0,-1),1,r))
-      return Col(0,.5,0);
+    double t=NAN;
+    if(hit_sphere(Vec3d(0,0,-1),1,r,t)&&t>0){
+      Vec3d N=(r.at(t)-Vec3d(0,0,-1)).norm();
+      return Col(0.5*(N.x()+1),0.5*(N.y()+1),0.5*(N.z()+1));
+    }
     Vec3d ud=r.getDir().norm();
-    double t=0.5*(ud.y()+1.);
-    return Col(1,1,1)*(1-t)+Col(0.5,0.7,1)*t;
+    double d=0.5*(ud.y()+1.);
+    return Col(1,1,1)*(1-d)+Col(0.5,0.7,1)*d;
   }
  public:
   rder(){}
