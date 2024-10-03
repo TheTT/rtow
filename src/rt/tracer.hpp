@@ -3,14 +3,14 @@
 #include<vector>
 #include"color.hpp"
 #include"camera.hpp"
-#include"sphere.hpp"
+#include"scene.hpp"
 class tracer{
  private:
   Camera cam;
+  Scene scn;
   Col trace(Ray r)const{
-    static Sphere sph(Vec3d(0,0,-1),1);
     Hitment hit;
-    if(sph.hit(r,0,1e9,hit))
+    if(scn.hit(r,0,1e9,hit))
       return Col(0.5*(hit.n+Vec3d(1,1,1)));
     Vec3d ud=r.getDir().norm();
     double d=0.5*(ud.y()+1.);
@@ -20,6 +20,10 @@ class tracer{
   tracer(){}
   tracer& setCam(const Camera& cam){
     this->cam=cam;
+    return *this;
+  }
+  tracer& setScn(const Scene& scn){
+    this->scn=scn;
     return *this;
   }
   void work(std::vector<Col> &buf)const{
