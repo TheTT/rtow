@@ -5,6 +5,7 @@ struct Hitment{
   Point p;
   Vec3d n;
   double t;
+  bool f;
 };
 class Hittable{
  public:

@@ -24,6 +24,7 @@ class Sphere:public Hittable{
     }
     h.p=ray.at(root);
     h.n=(h.p-center)/radius;
+    h.f=(h.n*rd<0);
     return true;
   }
 };
