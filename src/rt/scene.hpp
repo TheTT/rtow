@@ -3,7 +3,6 @@
 #include<vector>
 #include<memory>
 #include"hittable.hpp"
-#include"sphere.hpp"
 template <typename _Tp>
 concept DerivedFromHittable=std::is_base_of_v<Hittable,_Tp>;
 class Scene{
