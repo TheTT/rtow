@@ -1,10 +1,10 @@
-#ifndef __RDER_HPP__
-#define __RDER_HPP__
+#ifndef __TRACER_HPP__
+#define __TRACER_HPP__
 #include<vector>
 #include"color.hpp"
 #include"camera.hpp"
 #include"sphere.hpp"
-class rder{
+class tracer{
  private:
   Camera cam;
   Col trace(Ray r)const{
@@ -17,8 +17,8 @@ class rder{
     return Col(1,1,1)*(1-d)+Col(0.5,0.7,1)*d;
   }
  public:
-  rder(){}
-  rder& setCam(const Camera& cam){
+  tracer(){}
+  tracer& setCam(const Camera& cam){
     this->cam=cam;
     return *this;
   }
