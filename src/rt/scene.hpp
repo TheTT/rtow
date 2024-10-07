@@ -3,6 +3,7 @@
 #include<vector>
 #include"base.hpp"
 #include"hittable.hpp"
+#include"interval.hpp"
 template<typename _Tp>
 concept DerivedFromHittable=std::is_base_of_v<Hittable,_Tp>;
 class Scene{
@@ -24,12 +25,12 @@ class Scene{
     objs.push_back(std::make_shared<_Tp>(obj));
     return *this;
   }
-  bool hit(const Ray &ray,double tmin,double tmax,Hitment &h)const{
+  bool hit(const Ray &ray,Interval rg,Hitment &h)const{
     Hitment tmp;
     bool hit=false;
-    double maxt=tmax;
+    double maxt=rg.r;
     for(const auto &obj:objs)
-      if(obj->hit(ray,tmin,maxt,tmp))
+      if(obj->hit(ray,Interval(rg.l,maxt),tmp))
         hit=true,maxt=tmp.t,h=tmp;
     return hit;
   }

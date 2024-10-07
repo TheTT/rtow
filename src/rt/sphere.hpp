@@ -8,7 +8,7 @@ class Sphere:public Hittable{
   double radius;
  public:
   Sphere(const Point &center,const double radius):center(center),radius(fmax(0.,radius)){}
-  virtual bool hit(const Ray &ray,double tmin,double tmax,Hitment &h)const override{
+  virtual bool hit(const Ray &ray,Interval rg,Hitment &h)const override{
     Vec3d oc=center-ray.getOri();
     const Vec3d &rd=ray.getDir();
     double a=rd.lenSqr();
@@ -17,9 +17,9 @@ class Sphere:public Hittable{
     double delD4=hlf*hlf-a*c;
     if(delD4<0)return false;
     double &root=h.t=(hlf-sqrt(delD4))/a;
-    if(root<tmin||root>tmax){
+    if(!rg.surround(root)){
       root=(hlf+sqrt(delD4))/a;
-      if(root<tmin||root>tmax)
+      if(!rg.surround(root))
         return false;
     }
     h.p=ray.at(root);
