@@ -1,9 +1,9 @@
 #ifndef __SCENE_HPP__
 #define __SCENE_HPP__
 #include<vector>
-#include<memory>
+#include"base.hpp"
 #include"hittable.hpp"
-template <typename _Tp>
+template<typename _Tp>
 concept DerivedFromHittable=std::is_base_of_v<Hittable,_Tp>;
 class Scene{
  private:
@@ -14,12 +14,12 @@ class Scene{
     objs.push_back(obj);
     return *this;
   }
-  template <DerivedFromHittable _Tp>
+  template<DerivedFromHittable _Tp>
   inline Scene &add(_Tp &&obj){
     objs.push_back(std::make_shared<_Tp>(std::move(obj)));
     return *this;
   }
-  template <DerivedFromHittable _Tp>
+  template<DerivedFromHittable _Tp>
   inline Scene &add(const _Tp &obj){
     objs.push_back(std::make_shared<_Tp>(obj));
     return *this;

@@ -1,9 +1,9 @@
 #ifndef __TRACER_HPP__
 #define __TRACER_HPP__
 #include<vector>
-#include"color.hpp"
-#include"camera.hpp"
+#include"base.hpp"
 #include"scene.hpp"
+#include"camera.hpp"
 class tracer{
  private:
   Camera cam;

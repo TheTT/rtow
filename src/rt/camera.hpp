@@ -1,7 +1,6 @@
 #ifndef __CAMERA_H__
 #define __CAMERA_H__
-#include<cmath>
-#include"ray.hpp"
+#include"base.hpp"
 class Camera{
  private:
   Point at,tar,up;

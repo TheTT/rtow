@@ -1,6 +1,6 @@
 #ifndef __SPHERE_HPP__
 #define __SPHERE_HPP__
-#include<cmath>
+#include"base.hpp"
 #include"hittable.hpp"
 class Sphere:public Hittable{
  private:

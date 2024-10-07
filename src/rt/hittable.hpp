@@ -1,6 +1,6 @@
 #ifndef __HITTABLE_HPP__
 #define __HITTABLE_HPP__
-#include"ray.hpp"
+#include"base.hpp"
 struct Hitment{
   Point p;
   Vec3d n;

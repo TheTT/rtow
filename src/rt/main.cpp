@@ -1,6 +1,6 @@
 #include<vector>
 #include<fstream>
-#include<iostream>
+#include"base.hpp"
 #include"tracer.hpp"
 #include"sphere.hpp"
 // typedef Col Shader(int x,int y);
