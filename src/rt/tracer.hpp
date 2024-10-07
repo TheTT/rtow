@@ -10,7 +10,7 @@ class tracer{
   Scene scn;
   Col trace(Ray r)const{
     Hitment hit;
-    if(scn.hit(r,0,1e9,hit))
+    if(scn.hit(r,0,inf,hit))
       return Col(0.5*(hit.n+Vec3d(1,1,1)));
     Vec3d ud=r.getDir().norm();
     double d=0.5*(ud.y()+1.);
