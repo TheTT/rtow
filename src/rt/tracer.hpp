@@ -5,7 +5,7 @@
 #include"scene.hpp"
 #include"camera.hpp"
 #include"interval.hpp"
-class tracer{
+class Tracer{
  private:
   Camera cam;
   Scene scn;
@@ -18,12 +18,12 @@ class tracer{
     return Col(1,1,1)*(1-d)+Col(0.5,0.7,1)*d;
   }
  public:
-  tracer(){}
-  tracer& setCam(const Camera& cam){
+  Tracer(){}
+  Tracer& setCam(const Camera& cam){
     this->cam=cam;
     return *this;
   }
-  tracer& setScn(const Scene& scn){
+  Tracer& setScn(const Scene& scn){
     this->scn=scn;
     return *this;
   }
@@ -35,7 +35,7 @@ class tracer{
     }
     for(int y=0;y<cam.getIh();y++)
       for(int x=0;x<cam.getIw();x++)
-        buf.push_back(trace(cam.getRay(x,y)));
+        buf.push_back(trace(cam.getRayij(x,y)));
   }
 };
 #endif

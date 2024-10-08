@@ -47,11 +47,14 @@ class Camera{
     return *this;
   }
   inline bool ready()const{return done==7;}
-  Ray getRay(double u,double v)const{
+  inline Ray getRayuv(double u,double v)const{
     return Ray(at,(fvec+(right*(u-0.5)*vpw)+(up*(0.5-v)*vph)));
   }
-  inline Ray getRay(int x,int y)const{
-    return getRay((x+0.5)/iw,(y+0.5)/ih);
+  inline Ray getRayxy(double i,double j)const{
+    return getRayuv(i/iw,j/ih);
+  }
+  inline Ray getRayij(int i,int j)const{
+    return getRayuv((i+0.5)/iw,(j+0.5)/ih);
   }
 };
 #endif
