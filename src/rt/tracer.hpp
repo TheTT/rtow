@@ -40,7 +40,7 @@ class Tracer{
         else{
           Col c;
           for(int i=0;i<cam.getSpp();i++)
-            c+=trace(cam.getRayxy(x+randd(),y+randd()));
+            c+=trace(cam.getRayxy(x-.5+randd(),y-.5+randd()));
           buf.push_back(c/cam.getSpp());
         }
   }
