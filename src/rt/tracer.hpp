@@ -35,7 +35,14 @@ class Tracer{
     }
     for(int y=0;y<cam.getIh();y++)
       for(int x=0;x<cam.getIw();x++)
-        buf.push_back(trace(cam.getRayij(x,y)));
+        if(cam.getSpp()==1)
+          buf.push_back(trace(cam.getRayij(x,y)));
+        else{
+          Col c;
+          for(int i=0;i<cam.getSpp();i++)
+            c+=trace(cam.getRayxy(x+randd(),y+randd()));
+          buf.push_back(c/cam.getSpp());
+        }
   }
 };
 #endif

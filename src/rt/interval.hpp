@@ -11,5 +11,6 @@ class Interval{
   bool contains(double x)const{return l<=x&&x<=r;}
   bool contains(const Interval &i)const{return i.empty()||(l<=i.l&&i.r<=r);}
   bool surround(double x)const{return l<x&&x<r;}
+  double clamp(double x)const{return std::max(l,std::min(r,x));}
 };
 #endif

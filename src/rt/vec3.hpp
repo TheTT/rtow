@@ -3,7 +3,7 @@
 double sqrtRec(double x){
   union{long long i;double y;}u;
   double x2;
-  static const double threehalfs=1.5;
+  static constexpr double threehalfs=1.5;
   u.y=x;
   x2=u.y*0.5;
   u.i=0x5fe6eb50c7b537a9-(u.i>>1);

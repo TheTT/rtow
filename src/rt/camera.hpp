@@ -5,7 +5,7 @@ class Camera{
  private:
   Point at,tar,up;
   Point fvec,right;
-  int iw,ih;double fov;
+  int iw,ih,spp;double fov;
   double asr,vph,vpw;
   char done;
  public:
@@ -17,6 +17,7 @@ class Camera{
   inline const Point &getRight()const{return right;}
   inline int getIw()const{return iw;}
   inline int getIh()const{return ih;}
+  inline int getSpp()const{return spp;}
   Camera& setDire(const Point& at,const Point& tar,const Vec3d& up){
     this->at=at;
     this->tar=tar;
@@ -26,9 +27,10 @@ class Camera{
     done|=1;
     return *this;
   }
-  Camera& setRes(int iw,int ih){
+  Camera& setRes(int iw,int ih,int spp=1){
     this->iw=iw;
     this->ih=ih;
+    this->spp=spp;
     asr=double(iw)/ih;
     done|=2;
     if(done&4){

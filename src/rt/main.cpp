@@ -12,7 +12,7 @@ int main(){
   .setCam(
     Camera()
     .setDire(Point(0,0,1),Point(0,0,0),Vec3d(0,1,0))
-    .setRes(w,h)
+    .setRes(w,h,16)
     .setFov(90)
   )
   .setScn(
