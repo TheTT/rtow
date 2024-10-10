@@ -3,7 +3,6 @@
 #include"base.hpp"
 #include"tracer.hpp"
 #include"sphere.hpp"
-// typedef Col Shader(int x,int y);
 int main(){
   static const int w=256,h=256;
   std::ofstream ofs("../../image/demo.ppm");

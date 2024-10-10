@@ -50,8 +50,8 @@ class Camera{
   inline Ray getRayuv(double u,double v)const{
     return Ray(at,(fvec+(right*(u-0.5)*vpw)+(up*(0.5-v)*vph)));
   }
-  inline Ray getRayxy(double i,double j)const{
-    return getRayuv(i/iw,j/ih);
+  inline Ray getRayxy(double x,double y)const{
+    return getRayuv(x/iw,y/ih);
   }
   inline Ray getRayij(int i,int j)const{
     return getRayuv((i+0.5)/iw,(j+0.5)/ih);
