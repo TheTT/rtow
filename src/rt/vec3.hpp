@@ -1,5 +1,6 @@
 #ifndef __VEC3_HPP__
 #define __VEC3_HPP__
+#include"common.hpp"
 double sqrtRec(double x){
   union{long long i;double y;}u;
   double x2;
@@ -50,6 +51,22 @@ class Vec3d{
   double len()const{double x=lenSqr();return x*sqrtRec(x);}
   Vec3d norm()const{return *this*lenRec();}
   void makeUnit(){*this*=lenRec();}
+  // Static functions
+  static Vec3d randOct1(){return Vec3d(randd(),randd(),randd());}
+  static Vec3d randUnit(){
+    double x,y,z,l2;
+    do{
+      x=2.*randd()-1.;
+      y=2.*randd()-1.;
+      z=2.*randd()-1.;
+      l2=x*x+y*y+z*z;
+    }while(1e-160>l2||l2>1.);
+    return Vec3d(x,y,z).norm();
+  }
+  static Vec3d randHemi(const Vec3d& n){
+    Vec3d v=randUnit();
+    return v*n>0?v:-v;
+  }
 };
 // Binomial operators
 Vec3d operator*(const double t,const Vec3d& v){return v*t;}
