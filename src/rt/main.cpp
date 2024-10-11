@@ -4,7 +4,8 @@
 #include"tracer.hpp"
 #include"sphere.hpp"
 int main(){
-  static const int w=480,h=367;
+  static const int w=480,h=367,esr=64;
+  // static const int w=1280,h=720,esr=256;
   std::ofstream ofs("../../image/demo.ppm");
   ofs << "P3\n" << w << ' ' << h << "\n255\n";
   std::vector<Col> buf;
@@ -12,7 +13,7 @@ int main(){
   .setCam(
     Camera()
     .setDire(Point(0,0,1),Point(0,0,0),Vec3d(0,1,0))
-    .setRes(w,h,64)
+    .setRes(w,h,esr)
     .setFov(d2r(60))
   )
   .setScn(
