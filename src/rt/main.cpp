@@ -13,12 +13,13 @@ int main(){
     Camera()
     .setDire(Point(0,0,1),Point(0,0,0),Vec3d(0,1,0))
     .setRes(w,h,64)
-    .setFov(90)
+    .setFov(d2r(60))
   )
   .setScn(
     Scene()
-    .add(Sphere(Vec3d(0,0,-1),1))
-    .add(Sphere(Vec3d(0,-100.5,-1),100))
+    .add(Sphere(Vec3d(-0.4,0,-1),0.5))
+    .add(Sphere(Vec3d(0.4,0.2,-1.4),0.7))
+    .add(Sphere(Vec3d(-0.4,-100.5,-1),100))
   )
   .work(buf);
   for(auto &c:buf)ofs << c << '\n';

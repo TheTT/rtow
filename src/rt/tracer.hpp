@@ -26,8 +26,8 @@ class Tracer{
     Hitment hit;
     if(scn.hit(r,Interval(1e-6,inf),hit)){
       if(randd()<drn)return Col(0,0,0);
-      Vec3d direction=Vec3d::randHemi(hit.n);
-      return .5*trace(Ray(hit.p,direction),drn+dpl)/(1-drn);
+      Vec3d nd=hit.n+Vec3d::randUnit();
+      return .5*trace(Ray(hit.p,nd),drn+dpl)/(1-drn);
     }
     Vec3d ud=r.getDir().norm();
     auto a=.5*(ud.y()+1.);
