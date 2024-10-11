@@ -11,6 +11,9 @@ inline double d2r(double degrees){
   static constexpr double r=pi/180.0;
   return degrees*r;
 }
+inline double l2g(double linear){
+  return linear<=0?0:sqrt(linear);
+}
 inline double randd(){
   static std::random_device rd;
   static std::mt19937 gen(rd());

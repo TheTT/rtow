@@ -21,13 +21,13 @@ class Tracer{
     return Col(1,1,1)*(1-d)+Col(.5,.7,1)*d;
   }
   */
-  Col trace(const Ray& r,double drn=0)const{
+  Col trace(const Ray& r,double ctn=1)const{
     const double dpl=1./maxd;
     Hitment hit;
     if(scn.hit(r,Interval(1e-6,inf),hit)){
-      if(randd()<drn)return Col(0,0,0);
+      if(randd()>ctn)return Col(0,0,0);
       Vec3d nd=hit.n+Vec3d::randUnit();
-      return .5*trace(Ray(hit.p,nd),drn+dpl)/(1-drn);
+      return .3*trace(Ray(hit.p,nd),ctn-dpl)/ctn;
     }
     Vec3d ud=r.getDir().norm();
     auto a=.5*(ud.y()+1.);
