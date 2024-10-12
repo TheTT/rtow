@@ -3,6 +3,7 @@
 #include"base.hpp"
 #include"interval.hpp"
 struct Hitment;
+class Material;
 class Hittable{
  public:
   ~Hittable()=default;
