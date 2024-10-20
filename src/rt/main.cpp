@@ -6,6 +6,7 @@
 int main(){
   static const int w=480,h=367,esr=64;
   // static const int w=1280,h=720,esr=256;
+  std::shared_ptr<Material> mat=std::make_shared<Lambertian>(Col(.8,.3,.3));
   std::ofstream ofs("../../image/demo.ppm");
   ofs << "P3\n" << w << ' ' << h << "\n255\n";
   std::vector<Col> buf;
@@ -18,9 +19,9 @@ int main(){
   )
   .setScn(
     Scene()
-    .add(Sphere(Vec3d(-0.4,0,-1),0.5))
-    .add(Sphere(Vec3d(0.4,0.2,-1.4),0.7))
-    .add(Sphere(Vec3d(-0.4,-100.5,-1),100))
+    .add(Sphere(Vec3d(-0.4,0,-1),0.5).setMat(mat))
+    .add(Sphere(Vec3d(0.4,0.2,-1.4),0.7).setMat(mat))
+    .add(Sphere(Vec3d(-0.4,-100.5,-1),100).setMat(mat))
   )
   .work(buf);
   for(auto &c:buf)ofs << c << '\n';

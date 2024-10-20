@@ -4,8 +4,6 @@
 #include"base.hpp"
 #include"hittable.hpp"
 #include"interval.hpp"
-template<typename _Tp>
-concept DerivedFromHittable=std::is_base_of_v<Hittable,_Tp>;
 class Scene{
  private:
   std::vector<std::shared_ptr<Hittable> > objs;
@@ -15,14 +13,8 @@ class Scene{
     objs.push_back(obj);
     return *this;
   }
-  template<DerivedFromHittable _Tp>
-  inline Scene &add(_Tp &&obj){
-    objs.push_back(std::make_shared<_Tp>(std::move(obj)));
-    return *this;
-  }
-  template<DerivedFromHittable _Tp>
-  inline Scene &add(const _Tp &obj){
-    objs.push_back(std::make_shared<_Tp>(obj));
+  inline Scene &add(const Hittable &obj){
+    objs.push_back(obj.clone());
     return *this;
   }
   bool hit(const Ray &ray,Interval rg,Hitment &h)const{

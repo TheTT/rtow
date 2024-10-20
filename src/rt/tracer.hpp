@@ -6,6 +6,7 @@
 #include"scene.hpp"
 #include"camera.hpp"
 #include"interval.hpp"
+// #include"material.hpp"
 class Tracer{
  private:
   Camera cam;
