@@ -1,8 +1,8 @@
 #include<vector>
 #include<fstream>
-#include"base.hpp"
-#include"tracer.hpp"
-#include"sphere.hpp"
+#include"base.h"
+#include"tracer.h"
+#include"sphere.h"
 int main(){
   static const int w=480,h=367,esr=64;
   // static const int w=1280,h=720,esr=256;

@@ -1,25 +1,25 @@
-#ifndef __HITTABLE_HPP__
-#define __HITTABLE_HPP__
-#include"base.hpp"
-#include"interval.hpp"
-class Material;
+#ifndef __HITTABLE_H__
+#define __HITTABLE_H__
+struct Hitment;
+class Hittable;
+#include"base.h"
+#include"interval.h"
+#include"material.h"
 struct Hitment{
   Point p;
   Vec3d n;
   std::shared_ptr<Material> m;
   double t;
   bool f;
-  Hitment():p(),n(),m(),t(inf),f(false){}
+  Hitment();
 };
-#include"material.hpp"
 class Hittable{
  protected:
   std::shared_ptr<Material> m;
  public:
-  Hittable():m(){}
-  ~Hittable()=default;
+  Hittable();
   virtual bool hit(const Ray &ray,Interval rg,Hitment &h)const=0;
-  Hittable &setMat(const std::shared_ptr<Material> &m){this->m=m;return *this;}
+  Hittable &setMat(const std::shared_ptr<Material> &m);
   virtual std::shared_ptr<Hittable> clone()const=0;
 };
 template<typename _Tp>
