@@ -14,8 +14,9 @@ Col Tracer::trace(const Ray& r,double ctn)const{
   Hitment hit;
   if(scn.hit(r,Interval(1e-6,inf),hit)){
     if(randd()>ctn)return Col(0,0,0);
-    Vec3d nd=hit.n+Vec3d::randUnit();
-    return .3*trace(Ray(hit.p,nd),ctn-dpl)/ctn;
+    Col att;Ray nxt;
+    if(hit.m->backward(r,hit,att,nxt))
+      return att%trace(nxt,ctn-dpl)/ctn;
   }
   Vec3d ud=r.getDir().norm();
   auto a=.5*(ud.y()+1.);

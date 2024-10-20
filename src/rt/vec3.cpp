@@ -36,6 +36,10 @@ double Vec3d::lenRec()const{return sqrtRec(lenSqr());}
 double Vec3d::len()const{double x=lenSqr();return x*sqrtRec(x);}
 Vec3d Vec3d::norm()const{return *this*lenRec();}
 void Vec3d::makeUnit(){*this*=lenRec();}
+bool Vec3d::nearZero()const{
+  static constexpr double eps=1e-8;
+  return fabs(e[0])<eps&&fabs(e[1])<eps&&fabs(e[2])<eps;
+}
 Vec3d Vec3d::randOct1(){return Vec3d(randd(),randd(),randd());}
 Vec3d Vec3d::randUnit(){
   double x,y,z,l2;

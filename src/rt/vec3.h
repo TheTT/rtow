@@ -34,6 +34,7 @@ class Vec3d{
   double len()const;
   Vec3d norm()const;
   void makeUnit();
+  bool nearZero()const;
   static Vec3d randOct1();
   static Vec3d randUnit();
   static Vec3d randHemi(const Vec3d& n);
