@@ -15,4 +15,12 @@ class Lambertian:public Material{
   Lambertian(const Col& albedo);
   virtual bool backward(const Ray& rin,const Hitment& hit,Col& att,Ray& rout)const override;
 };
+class Metal:public Material{
+ private:
+  Col albedo;
+  double fuzz;
+ public:
+  Metal(const Col& albedo,double fuzz=0.);
+  virtual bool backward(const Ray& rin,const Hitment& hit,Col& att,Ray& rout)const override;
+};
 #endif

@@ -40,7 +40,10 @@ bool Vec3d::nearZero()const{
   static constexpr double eps=1e-8;
   return fabs(e[0])<eps&&fabs(e[1])<eps&&fabs(e[2])<eps;
 }
-Vec3d Vec3d::randOct1(){return Vec3d(randd(),randd(),randd());}
+Vec3d Vec3d::reflect(const Vec3d &n)const{
+  return *this-2.*(*this*n)*n;
+}
+Vec3d Vec3d::randOct1() { return Vec3d(randd(), randd(), randd()); }
 Vec3d Vec3d::randUnit(){
   double x,y,z,l2;
   do{
