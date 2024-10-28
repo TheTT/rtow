@@ -43,6 +43,12 @@ bool Vec3d::nearZero()const{
 Vec3d Vec3d::reflect(const Vec3d &n)const{
   return *this-2.*(*this*n)*n;
 }
+Vec3d Vec3d::refract(const Vec3d &n,double etaiOverEtat)const{
+  double cosTheta=fmin(-*this*n,1.);
+  Vec3d rPerp=etaiOverEtat*(*this+cosTheta*n);
+  Vec3d rPara=-sqrt(1.-rPerp.lenSqr())*n;
+  return rPerp+rPara;
+}
 Vec3d Vec3d::randOct1() { return Vec3d(randd(), randd(), randd()); }
 Vec3d Vec3d::randUnit(){
   double x,y,z,l2;

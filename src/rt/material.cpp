@@ -9,7 +9,6 @@ bool Lambertian::backward(const Ray& rin,const Hitment& hit,Col& att,Ray& rout)c
   rout=Ray(hit.p,nd);
   return true;
 }
-
 Metal::Metal(const Col &albedo,double fuzz):albedo(albedo),fuzz(fuzz){}
 bool Metal::backward(const Ray &rin,const Hitment &hit,Col &att,Ray &rout)const{
   Vec3d nd=rin.getDir().reflect(hit.n);
@@ -17,4 +16,13 @@ bool Metal::backward(const Ray &rin,const Hitment &hit,Col &att,Ray &rout)const{
   bool flag=nd*hit.n>0;att=albedo;
   if(flag)rout=Ray(hit.p,nd);
   return flag;
+}
+Dielectric::Dielectric(double refri):refri(refri){}
+bool Dielectric::backward(const Ray &rin,const Hitment &hit,Col &att,Ray &rout)const{
+  att=Col(1.0,1.0,1.0);
+  double ri=hit.f?(1./refri):refri;
+  Vec3d ud=rin.getDir().norm();
+  Vec3d nd=ud.refract(hit.n,ri);
+  rout=Ray(hit.p,nd);
+  return true;
 }
