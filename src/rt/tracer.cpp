@@ -10,17 +10,24 @@ Col Tracer::trace(Ray r)const{
 }
 */
 Col Tracer::trace(const Ray& r,double ctn)const{
-  const double dpl=1./maxd;
+  const double dpl=1./maxd+1e-6;
   Hitment hit;
+  Col res;
+  // std::cerr << "->((" << r.getOri().x() << ',' << r.getOri().y() << ',' << r.getOri().z() << "), (" << r.getDir().x() << ',' << r.getDir().y() << ',' << r.getDir().z() << "))\n";
   if(scn.hit(r,Interval(1e-6,inf),hit)){
     if(randd()>ctn)return Col(0,0,0);
     Col att;Ray nxt;
-    if(hit.m->backward(r,hit,att,nxt))
-      return att%trace(nxt,ctn-dpl)/ctn;
+    if(hit.m->backward(r,hit,att,nxt)){
+      res=att%trace(nxt,ctn-dpl)/ctn;
+      // std::cerr << "->(" << res.r() << ',' << res.g() << ',' << res.b() << ")\n";
+      return res;
+    }
   }
   Vec3d ud=r.getDir().norm();
   auto a=.5*(ud.y()+1.);
-  return (1.-a)*Col(1.,1.,1.)+a*Col(.5,.7,1.);
+  res=(1.-a)*Col(1.,1.,1.)+a*Col(.5,.7,1.);
+  // std::cerr << "->(" << res.r() << ',' << res.g() << ',' << res.b() << ")\n";
+  return res;
 }
 Tracer::Tracer(){}
 Tracer& Tracer::setCam(const Camera& cam,const int maxd){
@@ -52,6 +59,22 @@ void Tracer::work(std::vector<Col> &buf)const{
       }
   }
   std::clog << "\rRendering progress: 100%        ";
+  auto end=std::chrono::high_resolution_clock::now();
+  std::clog << "\nDone in " << std::chrono::duration<double>(end-start).count() << "s" << std::endl;
+}
+void Tracer::debug(double x,double y)const{
+  if(!cam.ready()){
+    std::cerr<<"Camera not ready!"<<std::endl;
+    return;
+  }
+  auto start=std::chrono::high_resolution_clock::now();
+  Col c,sp;
+  for(int i=0;i<cam.getSpp();i++){
+    c+=sp=trace(cam.getRayxy(x-.5+randd(),y-.5+randd()));
+    std::cerr << i << ": " << sp.r() << ' ' << sp.g() << ' ' << sp.b() << std::endl;
+  }
+  c/=cam.getSpp();
+  std::cerr << "Res: " << c.r() << ' ' << c.g() << ' ' << c.b() << std::endl;
   auto end=std::chrono::high_resolution_clock::now();
   std::clog << "\nDone in " << std::chrono::duration<double>(end-start).count() << "s" << std::endl;
 }

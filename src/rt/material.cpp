@@ -17,12 +17,25 @@ bool Metal::backward(const Ray &rin,const Hitment &hit,Col &att,Ray &rout)const{
   if(flag)rout=Ray(hit.p,nd);
   return flag;
 }
-Nuclear::Nuclear(double refri):refri(refri){}
-bool Nuclear::backward(const Ray &rin,const Hitment &hit,Col &att,Ray &rout)const{
-  att=Col(1.0,1.0,1.0);
-  double ri=hit.f?(1./refri):refri;
-  Vec3d ud=rin.getDir().norm();
-  Vec3d nd=ud.refract(hit.n,ri);
+Dielectric::Dielectric(double refri):refri(refri){}
+bool Dielectric::backward(const Ray &rin,const Hitment &hit,Col &att,Ray &rout)const{
+  att=Col(1.,1.,1.);
+  double etaiOo=hit.f?refri:1./refri;
+  // double etaiOo=refri;
+  Vec3d od=rin.getDir().norm();
+  auto sgn=[&](double x){return x>0?1:-1;};
+  double ci=-od*hit.n;
+  double si=sqrt(1.-ci*ci);
+  double so=si/etaiOo;
+  if(so>1.){
+    Vec3d nd=od.reflect(hit.n);
+    rout=Ray(hit.p,nd);
+    return true;
+  }
+  double co=sqrt(1.-so*so)*sgn(ci);
+  Vec3d uPara=od-ci*hit.n;
+  Vec3d nd=uPara*so-hit.n*co;
   rout=Ray(hit.p,nd);
+  // std::cerr << "<" << si << ',' << so << ">";
   return true;
 }
