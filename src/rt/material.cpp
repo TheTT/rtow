@@ -17,8 +17,8 @@ bool Metal::backward(const Ray &rin,const Hitment &hit,Col &att,Ray &rout)const{
   if(flag)rout=Ray(hit.p,nd);
   return flag;
 }
-Dielectric::Dielectric(double refri):refri(refri){}
-bool Dielectric::backward(const Ray &rin,const Hitment &hit,Col &att,Ray &rout)const{
+Nuclear::Nuclear(double refri):refri(refri){}
+bool Nuclear::backward(const Ray &rin,const Hitment &hit,Col &att,Ray &rout)const{
   att=Col(1.0,1.0,1.0);
   double ri=hit.f?(1./refri):refri;
   Vec3d ud=rin.getDir().norm();

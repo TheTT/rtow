@@ -2,7 +2,7 @@
 #define __MATERIAL_H__
 class Material;
 class Lambertian;
-class Dielectric;
+class Nuclear;
 #include"hittable.h"
 class Material{
  public:
@@ -24,12 +24,11 @@ class Metal:public Material{
   Metal(const Col& albedo,double fuzz=0.);
   virtual bool backward(const Ray& rin,const Hitment& hit,Col& att,Ray& rout)const override;
 };
-class Dielectric:public Material{
+class Nuclear:public Material{
  private:
-  // Col albedo;
   double refri;
  public:
-  Dielectric(/*const Col& albedo,*/double refri=1.);
+  Nuclear(double refri=1.);
   virtual bool backward(const Ray& rin,const Hitment& hit,Col& att,Ray& rout)const override;
 };
 #endif
