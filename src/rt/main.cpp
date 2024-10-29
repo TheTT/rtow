@@ -4,6 +4,7 @@
 #include"base.h"
 #include"tracer.h"
 #include"sphere.h"
+#define RENDER
 int main(){
   static const int w=480,h=367,esr=16;
   // static const int w=1280,h=720,esr=256;
@@ -11,9 +12,11 @@ int main(){
   std::shared_ptr<Material> m2=std::make_shared<Dielectric>(1.4);
   // std::shared_ptr<Material> m2=std::make_shared<Nuclear>(1.8);
   std::shared_ptr<Material> m3=std::make_shared<Metal>(Col(.8,.8,.0),0.2);
+#ifdef RENDER
   std::ofstream ofs("../../image/demo.ppm");
   ofs << "P3\n" << w << ' ' << h << "\n255\n";
   std::vector<Col> buf;
+#endif
   auto trc=Tracer()
   .setCam(
     Camera()
@@ -28,8 +31,11 @@ int main(){
       .add(Sphere(Vec3d(0.3,0.2,-1),0.5).setMat(m2))
       .add(Sphere(Vec3d(-0.4,-100.5,-1),100).setMat(m3))
   );
-  trc.debug(190.,150.);
+  trc.debug(223.,164.);
+  trc.debug(161.,204.);
+#ifdef RENDER
   trc.work(buf);
   for(auto &c:buf)ofs << c << '\n';
+#endif
   return 0;
 }

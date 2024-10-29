@@ -6,24 +6,24 @@ bool refract(const Vec3d &od,const Vec3d &n,double etaiOo,Vec3d &nd){
   double si=sqrt(1.-ci*ci);
   double so=si/etaiOo;
   if(so>1.){
-    Vec3d nd=od.reflect(n).norm();
+    nd=od.reflect(n).norm();
     return false;
   }
   double co=sqrt(1.-so*so)*sgn(ci);
-  Vec3d uPara=(od-ci*n).norm();
+  Vec3d uPara=(od+ci*n).norm();
   std::cout << uPara*n << "==0" << std::endl;
   nd=(uPara*so-n*co).norm();
   std::cout << "<" << si << ',' << so << ">" << std::endl;
   return true;
 }
 int main(){
-  Vec3d od,n(0,1,0),nd;
-  double etaiOo=1.4;
+  Vec3d od,n=Vec3d(1,1,1).norm(),nd;
+  double etaiOo=1.;
   for(int i=0;i<12;i++){
-    od=Vec3d(cos(i/6.*pi),sin(i/6.*pi),0);
+    od=Vec3d(cos(i/6.5*pi),sin(i/6.5*pi),0).norm();
     if(refract(od,n,etaiOo,nd))
-      std::cout << "Refract: " << nd << std::endl;
-    else std::cout << "Total reflection: " << od << std::endl;
+      std::cout << od << " -> Refract: " << nd << std::endl;
+    else std::cout << od << " -> TotRefl: " << od << std::endl;
     double ci=od*n,si=sqrt(1.-ci*ci);
     double co=nd*n,so=sqrt(1.-co*co);
     std::cout << si << " -> " << so << std::endl;

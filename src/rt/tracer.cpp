@@ -13,20 +13,20 @@ Col Tracer::trace(const Ray& r,double ctn)const{
   const double dpl=1./maxd+1e-6;
   Hitment hit;
   Col res;
-  // std::cerr << "->((" << r.getOri().x() << ',' << r.getOri().y() << ',' << r.getOri().z() << "), (" << r.getDir().x() << ',' << r.getDir().y() << ',' << r.getDir().z() << "))\n";
+  // std::cout << "\t->((" << r.getOri().x() << ',' << r.getOri().y() << ',' << r.getOri().z() << "), (" << r.getDir().x() << ',' << r.getDir().y() << ',' << r.getDir().z() << "))\n";
   if(scn.hit(r,Interval(1e-6,inf),hit)){
     if(randd()>ctn)return Col(0,0,0);
     Col att;Ray nxt;
     if(hit.m->backward(r,hit,att,nxt)){
       res=att%trace(nxt,ctn-dpl)/ctn;
-      // std::cerr << "->(" << res.r() << ',' << res.g() << ',' << res.b() << ")\n";
+      // std::cout << "\tcol\t(" << res.r() << ',' << res.g() << ',' << res.b() << ")\n";
       return res;
     }
   }
   Vec3d ud=r.getDir().norm();
   auto a=.5*(ud.y()+1.);
   res=(1.-a)*Col(1.,1.,1.)+a*Col(.5,.7,1.);
-  // std::cerr << "->(" << res.r() << ',' << res.g() << ',' << res.b() << ")\n";
+  // std::cout << "\tori\t(" << res.r() << ',' << res.g() << ',' << res.b() << ")\n";
   return res;
 }
 Tracer::Tracer(){}
@@ -68,13 +68,14 @@ void Tracer::debug(double x,double y)const{
     return;
   }
   auto start=std::chrono::high_resolution_clock::now();
-  Col c,sp;
+  Col c,sp;Ray r;
   for(int i=0;i<cam.getSpp();i++){
-    c+=sp=trace(cam.getRayxy(x-.5+randd(),y-.5+randd()));
-    std::cerr << i << ": " << sp.r() << ' ' << sp.g() << ' ' << sp.b() << std::endl;
+    r=cam.getRayxy(x-.5+randd(),y-.5+randd());
+    c+=sp=trace(Ray(r.getOri(),r.getDir().norm()));
+    // std::cout << i << ": " << sp.r() << ' ' << sp.g() << ' ' << sp.b() << std::endl;
   }
   c/=cam.getSpp();
-  std::cerr << "Res: " << c.r() << ' ' << c.g() << ' ' << c.b() << std::endl;
+  // std::cout << "Res: " << c.r() << ' ' << c.g() << ' ' << c.b() << std::endl;
   auto end=std::chrono::high_resolution_clock::now();
   std::clog << "\nDone in " << std::chrono::duration<double>(end-start).count() << "s" << std::endl;
 }
