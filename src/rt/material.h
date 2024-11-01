@@ -27,6 +27,7 @@ class Metal:public Material{
 class Dielectric:public Material{
  private:
   double refri;
+  static double reflratio(double c,double ri);
  public:
   Dielectric(double refri=1.);
   virtual bool backward(const Ray& rin,const Hitment& hit,Col& att,Ray& rout)const override;

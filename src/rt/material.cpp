@@ -17,6 +17,10 @@ bool Metal::backward(const Ray &rin,const Hitment &hit,Col &att,Ray &rout)const{
   if(flag)rout=Ray(hit.p,nd);
   return flag;
 }
+double Dielectric::reflratio(double c,double ri){
+  auto r0=(1-ri)/(1+ri);r0=r0*r0;
+  return r0+(1-r0)*std::pow((1-c),5);
+}
 Dielectric::Dielectric(double refri):refri(refri){}
 bool Dielectric::backward(const Ray &rin,const Hitment &hit,Col &att,Ray &rout)const{
   att=Col(1.,1.,1.);
@@ -26,7 +30,9 @@ bool Dielectric::backward(const Ray &rin,const Hitment &hit,Col &att,Ray &rout)c
   double ci=-od*n;
   double si=sqrt(1.-ci*ci);
   double so=si/etaiOo;
-  if(so>1.){
+  double rr=reflratio(std::fabs(ci),etaiOo);
+  // std::cout << "<rr=" << rr << ">" << std::endl;
+  if(so>1.||rr>randd()){
     nd=od.reflect(n).norm();
     rout=Ray(hit.p,nd);
     return true;
@@ -35,6 +41,5 @@ bool Dielectric::backward(const Ray &rin,const Hitment &hit,Col &att,Ray &rout)c
   Vec3d uPara=(od+ci*n).norm();
   nd=(uPara*so-n*co).norm();
   rout=Ray(hit.p,nd);
-  // std::cerr << "<" << si << ',' << so << ">";
   return true;
 }
