@@ -11,9 +11,9 @@ int Camera::getSpp()const{return spp;}
 Camera& Camera::setDire(const Point& at,const Point& tar,const Vec3d& up){
   this->at=at;
   this->tar=tar;
-  this->up=up.norm();
   fvec=tar-at;
-  right=(up^fvec).norm();
+  right=(fvec^up).norm();
+  this->up=(right^fvec).norm();
   done|=1;
   return *this;
 }

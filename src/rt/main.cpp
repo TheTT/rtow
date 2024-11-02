@@ -10,9 +10,9 @@ int main(){
   // static const int w=1280,h=720,esr=256;
   std::shared_ptr<Material> m1=std::make_shared<Lambertian>(Col(.8,.3,.3));
   std::shared_ptr<Material> m2=std::make_shared<Dielectric>(1.4);
-  std::shared_ptr<Material> m4=std::make_shared<Dielectric>(1./1.4);
+  std::shared_ptr<Material> m4=std::make_shared<Metal>(Col(.3,.3,.8),0.05);
   // std::shared_ptr<Material> m2=std::make_shared<Nuclear>(1.8);
-  std::shared_ptr<Material> m3=std::make_shared<Metal>(Col(.8,.8,.0),0.2);
+  std::shared_ptr<Material> m3=std::make_shared<Metal>(Col(.8,.8,.0),0.05);
 #ifdef RENDER
   std::ofstream ofs("../../image/demo.ppm");
   ofs << "P3\n" << w << ' ' << h << "\n255\n";
@@ -29,8 +29,8 @@ int main(){
   .setScn(
     Scene()
       .add(Sphere(Vec3d(-0.2,0,-1.6),0.5).setMat(m1))
-      .add(Sphere(Vec3d(0.3,0.2,-1),0.5).setMat(m2))
-      .add(Sphere(Vec3d(0.3,0.2,-1),0.45).setMat(m4))
+      .add(Sphere(Vec3d(0.3,0.2,-1.2),0.5).setMat(m2))
+      .add(Sphere(Vec3d(0.3,-0.5,-0.8),0.45).setMat(m4))
       .add(Sphere(Vec3d(-0.4,-100.5,-1),100).setMat(m3))
   );
 #ifdef RENDER
