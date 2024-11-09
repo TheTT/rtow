@@ -5,9 +5,10 @@ class Camera{
  private:
   Point at,tar,up;
   Point fvec,right;
-  int iw,ih,spp;double fov;
+  int iw,ih,spp;double flen,fov;
   double asr,vph,vpw;
   char done;
+  void upd_vphw();
  public:
   Camera();
   const Point &getAt()const;

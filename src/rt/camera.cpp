@@ -1,4 +1,8 @@
 #include"camera.h"
+void Camera::upd_vphw(){
+  vph=2*flen*tan(fov/2);
+  vpw=vph*asr;
+}
 Camera::Camera():done(7){}
 const Point &Camera::getAt()const{return at;}
 const Point &Camera::getTar()const{return tar;}
@@ -12,6 +16,7 @@ Camera& Camera::setDire(const Point& at,const Point& tar,const Vec3d& up){
   this->at=at;
   this->tar=tar;
   fvec=tar-at;
+  flen=fvec.len();
   right=(fvec^up).norm();
   this->up=(right^fvec).norm();
   done|=1;
@@ -23,24 +28,19 @@ Camera& Camera::setRes(int iw,int ih,int spp){
   this->spp=spp;
   asr=double(iw)/ih;
   done|=2;
-  if(done&4){
-    vph=2*tan(fov/2);
-    vpw=vph*asr;
-  }
+  if(done&4)upd_vphw();
   return *this;
 }
 Camera& Camera::setFov(double fov){
   this->fov=fov;
   done|=4;
-  if(done&2){
-    vph=2*tan(fov/2);
-    vpw=vph*asr;
-  }
+  if(done&2)upd_vphw();
   return *this;
 }
 bool Camera::ready()const{return done==7;}
 Ray Camera::getRayuv(double u,double v)const{
-  return Ray(at,(fvec+(right*(u-0.5)*vpw)+(up*(0.5-v)*vph)));
+  auto pix=at-right*(u-0.5)*vpw-up*(0.5-v)*vph;
+  return Ray(tar,tar-pix);
 }
 Ray Camera::getRayxy(double x,double y)const{
   return getRayuv(x/iw,y/ih);
